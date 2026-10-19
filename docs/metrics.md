@@ -18,7 +18,9 @@ Every metric has an id (`M-XXX-NN`). Tests that verify a metric are marked `@pyt
 ## Provenance
 
 ### M-PRV-01 Pull request provenance
-A commit is **agent-authored** when its `Agent:` trailer value is anything other than `none`.
+A commit is **agent-authored** when its `Agent:` trailer value is anything other than `none`
+(compared case-insensitively, after trimming whitespace). A trailer with an empty value counts as no trailer.
+Trailers are read from the last paragraph of the commit message; the last `Agent:` line wins.
 A pull request is `agent` when at least one of its commits is agent-authored, otherwise `human`.
 A commit with no `Agent:` trailer is `unknown`; a pull request with any `unknown` commit and no agent-authored commit is `unknown`.
 `unknown` pull requests are counted in `all` and reported separately as a data-quality warning.

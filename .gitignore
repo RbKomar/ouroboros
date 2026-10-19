@@ -8,6 +8,5 @@ coverage.json
 site/
 out/
 .claude/worktrees/
-.claude/state/
 *.local.json
 CLAUDE.local.md

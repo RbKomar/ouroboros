@@ -14,7 +14,7 @@ git -C "$ROOT" fetch -q origin
 git -C "$ROOT" worktree add -q -B "agent/issue-$ISSUE" "$WT" origin/main
 cd "$WT"
 uv sync --frozen -q
-mkdir -p .claude/state && echo "$ISSUE" > .claude/state/issue
+mkdir -p out/state && echo "$ISSUE" > out/state/issue
 
 echo "[$(date -u +%FT%TZ)] implementing #$ISSUE (budget \$$BUDGET)"
 claude -p "/implement-issue $ISSUE

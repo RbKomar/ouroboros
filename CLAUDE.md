@@ -17,7 +17,7 @@ and `docs/metrics.md` (the spec) before touching anything under `src/ouroboros/m
 - Metrics functions are pure: no I/O, no `datetime.now()`; take "now" as a parameter.
 - Do not create new markdown files. Documentation changes go into the files mapped in `.claude/doc-map`.
 - Every commit message ends with the trailer `Agent: <model-id>` (or `Agent: none` for human-only work).
-- One issue, one branch (`agent/issue-<n>`), one pull request, under 400 changed lines. Bigger: propose a split.
+- One issue, one branch (`agent/issue-<n>`), one pull request, under 400 changed lines of non-test code. Bigger: propose a split.
 
 ## When compacting
 Keep the issue number, the list of modified files and the last `scripts/verify.sh` result.

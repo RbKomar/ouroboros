@@ -1,0 +1,13 @@
+__pycache__/
+.venv/
+.coverage
+coverage.json
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+site/
+out/
+.claude/worktrees/
+.claude/state/
+*.local.json
+CLAUDE.local.md

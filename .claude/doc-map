@@ -1,0 +1,2 @@
+# <code prefix> <doc prefix>: a change under the first requires a change under the second.
+src/ouroboros/cli.py README.md

@@ -1,0 +1,40 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      BASE: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || 'HEAD~1' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --quiet uv==0.12.21
+      - run: uv sync --frozen
+      - name: verify (lint, types, tests, spec trace, CRAP)
+        run: VERIFY_BASE=$BASE scripts/verify.sh
+      - name: change size
+        if: github.event_name == 'pull_request'
+        run: scripts/change-size.sh $BASE
+      - name: docs coupling
+        if: github.event_name == 'pull_request'
+        run: scripts/docs-coupling.sh $BASE
+      - name: provenance trailers
+        if: github.event_name == 'pull_request'
+        run: scripts/check-trailers.sh $BASE

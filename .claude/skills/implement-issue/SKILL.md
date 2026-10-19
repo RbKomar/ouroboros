@@ -11,10 +11,10 @@ Follow these steps in order. Do not skip any.
 
 1. **Check readiness.** If the acceptance criteria are not testable, or the issue depends on an open issue that is
    not merged, stop and explain what is missing. Do not guess.
-2. **Branch.** `git fetch origin && git switch -c agent/issue-$issue origin/main`, then write `$issue` to
-   `.claude/state/issue` (create the directory with `mkdir -p` if needed; it is gitignored).
+2. **Branch.** `git fetch origin && git switch -c agent/issue-$issue origin/main`, then use the Write tool to
+   create `out/state/issue` containing `$issue` (`out/` is gitignored).
 3. **Plan briefly** (in the conversation, not in a file): modules touched, tests to write, spec ids covered.
-   If the change will exceed ~400 lines, stop and propose a split instead.
+   If production code (tests excluded) will exceed ~400 changed lines, stop and propose a split instead.
 4. **Tests first** for each acceptance criterion, marked with the spec id where one applies. Run them and see them fail
    for the right reason.
 5. **Implement** until `scripts/verify.sh` passes. Fix causes, never weaken tests or gates.

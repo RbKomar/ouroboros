@@ -13,6 +13,7 @@
       "Bash(git status *)", "Bash(git diff *)", "Bash(git log *)", "Bash(git show *)",
       "Bash(git add *)", "Bash(git commit *)", "Bash(git switch *)", "Bash(git checkout -b *)",
       "Bash(git fetch *)", "Bash(git rebase origin/main)",
+      "Write(/out/**)", "Edit(/out/**)",
       "Bash(gh issue view *)", "Bash(gh pr view *)", "Bash(gh pr diff *)", "Bash(gh pr checks *)"
     ],
     "ask": [

@@ -41,7 +41,7 @@ The gates are one set of scripts used by hooks, the unattended runner and CI ali
 - `scripts/verify.sh` - ruff, mypy (strict), pytest with coverage, spec traceability, CRAP score on changed code
 - `scripts/spec_trace.py` - every test that claims to verify a metric must point at an id that exists in the spec
 - `scripts/crap.py` - [CRAP](https://www.artima.com/weblogs/viewpost.jsp?thread=210575) (complexity x missing coverage) per function, threshold 15
-- `scripts/change-size.sh` - at most 400 changed lines per PR
+- `scripts/change-size.sh` - at most 400 changed lines of production code per PR (tests do not count)
 - `scripts/docs-coupling.sh` - code and the docs that describe it change together (`.claude/doc-map`)
 - `scripts/check-trailers.sh` - every commit declares its provenance
 

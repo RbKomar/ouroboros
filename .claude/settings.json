@@ -28,7 +28,19 @@
       "Bash(gh issue view *)",
       "Bash(gh pr view *)",
       "Bash(gh pr diff *)",
-      "Bash(gh pr checks *)"
+      "Bash(gh pr checks *)",
+      "Edit(/src/**)",
+      "Write(/src/**)",
+      "Edit(/tests/**)",
+      "Write(/tests/**)",
+      "Edit(/README.md)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(grep *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(wc *)",
+      "Bash(find *)"
     ],
     "ask": [
       "Bash(git push *)",

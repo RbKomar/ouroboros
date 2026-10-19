@@ -24,4 +24,7 @@ Follow these steps in order. Do not skip any.
 8. **Push and open a draft PR** with `git push -u origin agent/issue-$issue` and
    `gh pr create --draft --title "<issue title>" --body-file <file>` using `.github/pull_request_template.md`.
    Fill every section honestly; "What was not done" is never empty without a reason. Put `Closes #$issue` in the body.
-9. Stop. A human reviews and merges.
+9. Stop. A human reviews and merges. End your final message with one line starting `Next for you:` that names
+   the exact human action (e.g. "review and merge PR #12 once CI is green"), then the next open `agent-ready`
+   issue whose dependencies will all be merged after this one, with the command to start it
+   (`/implement-issue <n>`). If nothing can start yet, say what blocks it.

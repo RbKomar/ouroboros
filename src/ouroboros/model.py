@@ -75,8 +75,9 @@ class Commit:
     def agent(self) -> str | None:
         """Value of the ``Agent:`` trailer in the last paragraph of the message, else ``None``.
 
-        Follows git conventions: trailers live in the last paragraph, which must not be the
-        subject paragraph; keys are case-insensitive; the last occurrence wins.
+        Simplified from git conventions: trailers live in the last paragraph, which must not be
+        the subject paragraph; keys are case-insensitive; the last occurrence wins. Unlike
+        ``git interpret-trailers`` it does not require the paragraph to be a pure trailer block.
         """
         paragraphs = re.split(r"\n[ \t]*\n", self.message.replace("\r\n", "\n").strip())
         if len(paragraphs) < 2:

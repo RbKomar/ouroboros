@@ -18,7 +18,10 @@ mkdir -p out/state && echo "$ISSUE" > out/state/issue
 
 echo "[$(date -u +%FT%TZ)] implementing #$ISSUE (budget \$$BUDGET)"
 claude -p "/implement-issue $ISSUE
-You are running unattended. Do steps 1-7 only: do not push and do not open a PR; the runner does that.
+You are running unattended. The runner already created branch agent/issue-$ISSUE in this worktree and
+wrote out/state/issue, so skip the branch part of step 2. Do steps 1-7 only: do not push and do not open
+a PR; the runner does that. Your final message becomes the PR description: write it in the format of
+.github/pull_request_template.md (without the Closes/Agent/Cost-USD lines, the runner adds them).
 If you must stop early, explain why in your final message." \
   --permission-mode dontAsk --max-budget-usd "$BUDGET" \
   --output-format json > "$OUT/implement.json" || true
@@ -46,8 +49,8 @@ if [ "$GATES" = ok ] && [ "$VERDICT" = pass ]; then
   BODY="$OUT/pr-body.md"
   {
     jq -r '.result' "$OUT/implement.json"
-    printf '\n## Evidence (runner)\n```\n%s\n```\nReviewer verdict: %s\n\nCloses #%s\nCost-USD: %s\n' \
-      "$(tail -15 "$OUT/verify.log")" "$VERDICT" "$ISSUE" "$TOTAL"
+    printf '\n## Evidence (runner)\n```\n%s\n```\nReviewer verdict: %s\n\nCloses #%s\nAgent: %s\nCost-USD: %s\n' \
+      "$(tail -15 "$OUT/verify.log")" "$VERDICT" "$ISSUE" "$(git log -1 --format='%(trailers:key=Agent,valueonly)' | head -1)" "$TOTAL"
   } > "$BODY"
   gh pr create --draft --head "agent/issue-$ISSUE" --title "$(gh issue view "$ISSUE" --json title --jq .title)" --body-file "$BODY"
 else

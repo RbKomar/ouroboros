@@ -8,43 +8,118 @@
   },
   "permissions": {
     "allow": [
-      "Bash(uv run *)", "Bash(uv add *)", "Bash(uv sync *)", "Bash(uv lock *)",
+      "Bash(uv run *)",
+      "Bash(uv add *)",
+      "Bash(uv sync *)",
+      "Bash(uv lock *)",
       "Bash(scripts/*)",
-      "Bash(git status *)", "Bash(git diff *)", "Bash(git log *)", "Bash(git show *)",
-      "Bash(git add *)", "Bash(git commit *)", "Bash(git switch *)", "Bash(git checkout -b *)",
-      "Bash(git fetch *)", "Bash(git rebase origin/main)",
-      "Write(/out/**)", "Edit(/out/**)",
-      "Bash(gh issue view *)", "Bash(gh pr view *)", "Bash(gh pr diff *)", "Bash(gh pr checks *)"
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git switch *)",
+      "Bash(git checkout -b *)",
+      "Bash(git fetch *)",
+      "Bash(git rebase origin/main)",
+      "Write(/out/**)",
+      "Edit(/out/**)",
+      "Bash(gh issue view *)",
+      "Bash(gh pr view *)",
+      "Bash(gh pr diff *)",
+      "Bash(gh pr checks *)",
+      "Edit(/src/**)",
+      "Write(/src/**)",
+      "Edit(/tests/**)",
+      "Write(/tests/**)",
+      "Edit(/README.md)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(grep *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(wc *)",
+      "Bash(find *)"
     ],
     "ask": [
-      "Bash(git push *)", "Bash(gh pr create *)", "Bash(gh pr edit *)", "Bash(gh issue comment *)"
+      "Bash(git push *)",
+      "Bash(gh pr create *)",
+      "Bash(gh pr edit *)",
+      "Bash(gh issue comment *)"
     ],
     "deny": [
-      "Bash(gh pr merge *)", "Bash(git push --force *)", "Bash(git push -f *)", "Bash(git push origin main*)",
-      "Edit(/CLAUDE.md)", "Write(/CLAUDE.md)",
-      "Edit(/.claude/**)", "Write(/.claude/**)",
-      "Edit(/docs/metrics.md)", "Write(/docs/metrics.md)",
-      "Edit(/scripts/**)", "Write(/scripts/**)",
-      "Edit(/.github/**)", "Write(/.github/**)",
-      "Read(./.env)", "Read(./.env.*)"
+      "Bash(gh pr merge *)",
+      "Bash(git push --force *)",
+      "Bash(git push -f *)",
+      "Bash(git push origin main*)",
+      "Edit(/CLAUDE.md)",
+      "Write(/CLAUDE.md)",
+      "Edit(/.claude/**)",
+      "Write(/.claude/**)",
+      "Edit(/docs/metrics.md)",
+      "Write(/docs/metrics.md)",
+      "Edit(/scripts/**)",
+      "Write(/scripts/**)",
+      "Edit(/.github/**)",
+      "Write(/.github/**)",
+      "Read(./.env)",
+      "Read(./.env.*)"
     ]
   },
   "hooks": {
     "SessionStart": [
-      { "matcher": "startup|compact",
-        "hooks": [ { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-context.sh" } ] }
+      {
+        "matcher": "startup|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-context.sh"
+          }
+        ]
+      }
     ],
     "PostToolUse": [
-      { "matcher": "Edit|Write",
-        "hooks": [ { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/post-edit-lint.sh" } ] }
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/post-edit-lint.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/post-bash-lint.sh"
+          }
+        ]
+      }
     ],
     "PreToolUse": [
-      { "matcher": "Bash",
-        "hooks": [ { "type": "command", "if": "Bash(git commit *)",
-                     "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/pre-commit-gates.sh" } ] }
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(git commit *)",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/pre-commit-gates.sh"
+          }
+        ]
+      }
     ],
     "Stop": [
-      { "hooks": [ { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/stop-gate.sh" } ] }
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/stop-gate.sh"
+          }
+        ]
+      }
     ]
   }
 }
